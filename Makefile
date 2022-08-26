@@ -63,7 +63,7 @@
 # DFU_UPDATE_BUILD=1      # Uncomment this to build Espruino for a device firmware update over the air (nRF52).
 #
 # -- ESP32 Only
-# RTOS=1                  # adds RTOS functions, available only for ESP32 
+# RTOS=1                  # adds RTOS functions, available only for ESP32
 
 include make/sanitycheck.make
 
@@ -622,7 +622,7 @@ ifeq ($(USE_CRYPTO),1)
     include make/crypto/$(FAMILY).make
   else
     include make/crypto/default.make
-  endif 
+  endif
 endif
 
 ifeq ($(USE_NEOPIXEL),1)
@@ -668,7 +668,15 @@ ifeq ($(USE_WIO_LTE),1)
   SOURCES += targets/stm32/stm32_ws2812b_driver.c
 endif
 
-ifeq ($(USE_TENSORFLOW),1) 
+ifeq ($(USE_NFC),1)
+  ifeq ($(USE_NTAG215),1)
+    DEFINES += -DUSE_NTAG215
+    INCLUDE += -I$(ROOT)/libs/ntag215
+    WRAPPERSOURCES += libs/ntag215/jswrap_ntag215.c
+  endif
+endif
+
+ifeq ($(USE_TENSORFLOW),1)
 include make/misc/tensorflow.make
 endif
 
