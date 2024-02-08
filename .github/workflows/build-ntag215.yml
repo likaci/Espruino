@@ -19,7 +19,7 @@ jobs:
     strategy:
       # devices to build for
       matrix:
-        board: [PUCKJS, PIXLJS, MDBT42Q, BANGLEJS, BANGLEJS2, PUCKJS_MINIMAL, PUCKJS_LITE]
+        board: [PUCKJS, PUCKJS_MINIMAL, PUCKJS_LITE]
       # try and build for all devices even if one fails
       fail-fast: false 
     steps:
@@ -36,7 +36,8 @@ jobs:
         UPLOADTOKEN: ${{ secrets.UPLOADTOKEN }}  
       run: |
         source ./scripts/provision.sh  ${{ matrix.board }}
-        make
+        make clean;RELEASE=1 BOOTLOADER=1 make
+        make clean;RELEASE=1 make
         ./scripts/ci_upload.sh       
     - name: Upload ${{ matrix.board }} build artifact
       uses: actions/upload-artifact@v3.1.0
