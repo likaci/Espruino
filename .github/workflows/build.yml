@@ -81,11 +81,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: ${{ matrix.board }}
-        path: |
-          bin/*.bin
-          bin/*.hex
-          bin/*.tgz
-          bin/*.zip
+        path: bin/*
        
   # Builds with PAD_FOR_BOOTLOADER=1
   build_padded:
