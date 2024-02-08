@@ -42,11 +42,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with:
         name: ${{ matrix.board }}
-        path: |
-          *.bin
-          *.hex
-          *.tgz
-          *.zip
+        path: bin/*
        
 # Disable doc building for now 
 #  docs:
